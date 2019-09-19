@@ -8,10 +8,11 @@ const pullMinTemp = dayObj => `${dayObj.AT.mn}°`
 const pullMaxTemp = dayObj => `${dayObj.AT.mx}°`
 const pullWindSpeed = dayObj => dayObj.HWS.av
 const pullWindDir = dayObj => dayObj.WD.most_common.compass_point
+// const pullWindDeg = dayObj => dayObj.WD.most_common.compass_degrees
 
-const createLi = (dayObj, func, label, unit1, unit2, seperator)  => {
+const createPTag = (dayObj, func, label, unit1, unit2, seperator)  => {
   let funcValue = func(dayObj)
-  let li = document.createElement("li")
+  let pTag = document.createElement("p")
   let unit1Span = document.createElement("span")
   let unit2Span = document.createElement("span")
   let pipe = document.createElement("span")
@@ -23,40 +24,54 @@ const createLi = (dayObj, func, label, unit1, unit2, seperator)  => {
     unit2Span.classList.add(unit2)
   }
 
-  li.innerText = `${label}: ${funcValue} `
-  li.append(unit1Span, pipe, unit2Span)
-  return li
+  pTag.innerText = `${label}:  ${funcValue} `
+  pTag.append(unit1Span, pipe, unit2Span)
+
+  return pTag;
 }
 
 
 fetch("https://api.nasa.gov/insight_weather/?api_key=COCIGDGp6Pfcbdgc5tTfWnmnFdcj05QtLcxJOOgm&feedtype=json&ver=1.0")
   .then(response => response.json())
-  .then((json) => {
+  .then(json => {
     const solKeys = json["sol_keys"]
     // console.log(solKeys)
     solKeys.forEach((solDay) => {
       if (json[solDay]) {
-        let avgTempLi = createLi(json[solDay], pullAvgTemp, "Avg Temp:  ", "F", "C", " | ")
-        let minTempLi = createLi(json[solDay], pullMinTemp, "Min Temp:  ", "F", "C", " | ")
-        let maxTempLi = createLi(json[solDay], pullMaxTemp, "Max Temp:  ", "F", "C", " | ")
-        let windSpeedLi = createLi(json[solDay], pullWindSpeed, "Wind Speed:  ", "m/s", "MpH", " | ")
-        let windDirLi = createLi(json[solDay], pullWindDir, "Wind Direction:  ", "", "", "")
+
+        // Create p tags for the pieces of data for this Mars sol
+        let avgTempPTag = createPTag(json[solDay], pullAvgTemp, "Avg Temp", "F", "C", " | ")
+        let minTempPTag = createPTag(json[solDay], pullMinTemp, "Min Temp", "F", "C", " | ")
+        let maxTempPTag = createPTag(json[solDay], pullMaxTemp, "Max Temp", "F", "C", " | ")
+        let windSpeedPTag = createPTag(json[solDay], pullWindSpeed, "Wind Speed", "m/s", "MpH", " | ")
+        let windDirPTag = createPTag(json[solDay], pullWindDir, "Wind Direction", "", "", "")
+
+        // Create a div for this Mars sol
         let solDiv = document.createElement("div")
-        let solUl = document.createElement("ul")
-        let mainDiv = document.querySelector('.content-wrapper')
-        let divTitle = document.createElement("h2")
-
-        divTitle.innerText = `Sol ${solDay}`
-
+        solDiv.style.textAlign = "center"
         solDiv.id = `${solDay}-div`
         solDiv.classList.add("sol-div")
 
-        solUl.id = `${solDay}-ul`
-        solUl.classList.add("sol-ul")
+        // Create a div for the weather data within the div for this Mars sol
+        let dataDiv = document.createElement("div")
+        dataDiv.id = `${solDay}-data-div`
+        dataDiv.classList.add("sol-data-div")
 
-        solUl.append(avgTempLi, minTempLi, maxTempLi, windSpeedLi, windDirLi)
+        // Create a title for this Mars sol div
+        let divTitle = document.createElement("h2")
+        divTitle.innerText = `Sol ${solDay}`
+
+        // Append title to this Mars sol div
         solDiv.append(divTitle)
-        solDiv.append(solUl)
+
+        // Append weather p tags to the weather data div
+        dataDiv.append(avgTempPTag, minTempPTag, maxTempPTag, windSpeedPTag, windDirPTag)
+
+        // Append weather data div to this Mars sol div
+        solDiv.append(dataDiv)
+
+        // Append this Mars sol div to the content wrapper
+        let mainDiv = document.querySelector('.content-wrapper')
         mainDiv.append(solDiv)
       }
     })
