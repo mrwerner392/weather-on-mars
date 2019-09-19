@@ -1,0 +1,33 @@
+* {
+  font-family: 'Gayathri', sans-serif;
+}
+
+html {
+
+}
+
+body {
+  /* overflow: hidden; */
+  /* position: absolute; */
+  /* top: -8px; */
+}
+
+.content-wrapper {
+  margin: 0;
+  position: absolute;
+  top: 25%;
+  height: 50%;
+  white-space: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.sol-div {
+  text-align: center;
+  border-style: solid;
+  border-color: #ff4b0f;
+  margin: auto 100px auto 100px;
+  width: 300px;
+  display: inline-block;
+  /* white-space: normal; */
+}
