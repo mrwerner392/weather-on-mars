@@ -2,7 +2,8 @@
 // api key: COCIGDGp6Pfcbdgc5tTfWnmnFdcj05QtLcxJOOgm
 // api url: https://api.nasa.gov/insight_weather/?api_key=DEMO_KEY&feedtype=json&ver=1.0
 // live url: https://api.nasa.gov/insight_weather/?api_key=COCIGDGp6Pfcbdgc5tTfWnmnFdcj05QtLcxJOOgm&feedtype=json&ver=1.0
-
+let wrapper = document.querySelector(".content-wrapper")
+let scroll = document.querySelector(".scroll")
 
 fetch("https://api.nasa.gov/insight_weather/?api_key=COCIGDGp6Pfcbdgc5tTfWnmnFdcj05QtLcxJOOgm&feedtype=json&ver=1.0")
   .then(response => response.json())
@@ -77,6 +78,27 @@ const createPTag = (dayObj, func, label, unit1, unit2, seperator)  => {
   return pTag;
 };
 
+// Scroll page horizonatally on vertical user scroll
+wrapper.addEventListener("mousewheel", MouseWheelHandler,);
+
+function MouseWheelHandler(e) {
+  e.preventDefault();
+
+  // Scroll only on vertical user scroll
+  if (e.deltaX === 0) {
+
+    // How far to move the content
+    let delta = 10 * e.deltaY;
+
+    // Set the new horizontal position for the content
+    let position = wrapper.scrollLeft + delta;
+
+    // Move content to new position
+    wrapper.scrollLeft = position;
+
+  }
+
+}
 
 // // Horizontal scrolling
 // let scrollSpeed = 30;
