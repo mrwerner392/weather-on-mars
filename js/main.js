@@ -2,8 +2,8 @@
 // api key: COCIGDGp6Pfcbdgc5tTfWnmnFdcj05QtLcxJOOgm
 // api url: https://api.nasa.gov/insight_weather/?api_key=DEMO_KEY&feedtype=json&ver=1.0
 // live url: https://api.nasa.gov/insight_weather/?api_key=COCIGDGp6Pfcbdgc5tTfWnmnFdcj05QtLcxJOOgm&feedtype=json&ver=1.0
-let wrapper = document.querySelector(".content-wrapper")
-let scroll = document.querySelector(".scroll")
+const wrapper = document.querySelector(".content-wrapper")
+const scroll = document.querySelector(".scroll")
 
 fetch("https://api.nasa.gov/insight_weather/?api_key=COCIGDGp6Pfcbdgc5tTfWnmnFdcj05QtLcxJOOgm&feedtype=json&ver=1.0")
   .then(response => response.json())
@@ -79,9 +79,9 @@ const createPTag = (dayObj, func, label, unit1, unit2, seperator)  => {
 };
 
 // Scroll page horizonatally on vertical user scroll
-wrapper.addEventListener("mousewheel", MouseWheelHandler,);
+wrapper.addEventListener("mousewheel", mouseWheelHandler);
 
-function MouseWheelHandler(e) {
+function mouseWheelHandler(e) {
   e.preventDefault();
 
   // Scroll only on vertical user scroll
@@ -95,32 +95,22 @@ function MouseWheelHandler(e) {
 
     // Move content to new position
     wrapper.scrollLeft = position;
-
   }
 
+  // // Include horizontal user scroll in scroll delta
+  // let delta = 0;
+  //
+  // if (e.deltaX >= 0 && e.deltaY >=0) {
+  //   delta = Math.sqrt((e.deltaX ** 2) + (e.deltaY ** 2));
+  // } else if (e.deltaX <= 0 && e.deltaY <= 0) {
+  //   delta = -Math.sqrt((e.deltaX ** 2) + (e.deltaY ** 2));
+  // };
+  //
+  // // Set the new horizontal position for the content
+  // let position = wrapper.scrollLeft + delta;
+  //
+  // // Move content to new position
+  // wrapper.scrollLeft = position;
+  // }
+
 }
-
-// // Horizontal scrolling
-// let scrollSpeed = 30;
-// let scroller = document.getElementById("content-wrapper");
-
-// scroller.addEventListener("mousewheel", function(e) {
-//   // block if e.deltaY==0
-//   debugger;
-//   if( !e.deltaY ) return;
-//   // Set scrollDirection (-1 = up // 1 = down)
-//   let scrollDirection = (e.deltaY > 0) ? 1 : -1;
-//   // convert vertical scroll into horizontal
-//   scroller.scrollLeft += scrollSpeed * scrollDirection;
-//   let scrollLeft = Math.round(scroller.scrollLeft);
-//   // calculate box total vertical scroll
-//   let maxScrollLeft = Math.round( scroller.scrollWidth - scroller.clientWidth );
-//   // if element scroll has not finished scrolling
-//   // prevent window to scroll
-//   if(
-//     (scrollDirection === -1  && scrollLeft > 0) ||
-//     (scrollDirection === 1 && scrollLeft < maxScrollLeft )
-//   ) e.preventDefault()
-//   // done!
-//   return true;
-// });
