@@ -1,5 +1,5 @@
 * {
-  font-family: 'Gayathri', sans-serif;
+  font-family: 'Electrolize', sans-serif;
 }
 
 html {
@@ -28,9 +28,7 @@ body {
 
 .sol-div {
   text-align: center;
-  border-style: solid;
-  border-color: #ff4b0f;
-  margin: 15vh 25vw 0 25vw;
+  margin: 4vh 25vw 0 25vw;
   width: 50vw;
   /* max-height: 50vh; */
   display: inline-block;
@@ -40,13 +38,33 @@ body {
   /* white-space: normal; */
 }
 
+.sol-data-div {
+  border-style: groove;
+  border-color: #b54e00;
+  border-width: thick;
+  border-radius: 25px;
+  background-color: rgba(255, 114, 48, 0.3);
+}
+
 h1 {
   font-size: 6vw;
-  margin-bottom: 10px;
+  color: #FFF;
+  margin-bottom: 8vh;
+  margin-top: 2vh;
+  background-color: rgba(102, 102, 102, 0.8);
+  border-radius: 25px;
+  border-style: solid;
+  border-color: #121212;
 }
 
 p {
   font-size: 3vw;
+  color: #FFF;
   padding: 1vh 0 1vh 0;
   margin: 0 0 0 0;
+}
+
+span.unit:hover {
+  color: #000000;
+  cursor: pointer;
 }
